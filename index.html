@@ -375,6 +375,8 @@
     var FORM_BASE = 'https://docs.google.com/forms/d/e/1FAIpQLSfzPwU9AkwJIYq8G4hl89w9a37ZZ-5e1dLwuGFFDKwjvVFKZg/viewform';
     var PARTY_FORM_BASE = 'https://docs.google.com/forms/d/e/1FAIpQLSc7SZ9op3EQY4a-cp-mfkTST5NUohJGJ6zYDNc-oGFRBnpWxw/viewform';
     // 10월 잔여 할로윈 파티 2건은 기존 10월 파티 폼(옵션이 이미 할로윈으로 교체돼 있음)을 그대로 사용
+    // 12월 파티 폼 (12월 파티 신청 / 응답 시트 연결)
+    var DEC_PARTY_FORM_BASE = 'https://docs.google.com/forms/d/e/1FAIpQLSciL7kY-JEG9aWW1ny6xiVZzATA2ZOp3UqNlhdfrgrl8prnlg/viewform';
     var OCT_PARTY_FORM_BASE = 'https://docs.google.com/forms/d/e/1FAIpQLSfB0rzzq_QHkjOB5rDSrDIDGq5IusDDM2EIHKkjkASWJBxPww/viewform';
     var EVENTS = [
       // ---- 10월 잔여 일정 (할로윈 파티) ----
@@ -404,14 +406,14 @@
       { mo:10, day:27, h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                    desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=11%2F27%28%EA%B8%88%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
       { mo:10, day:28, h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                    desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=11%2F28%28%ED%86%A0%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
       // ---- 12월 파티 (매주 금·토 19:30, 12/5는 30·40 파티) ----
-      { mo:11, day:4 , h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F4%28%EA%B8%88%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
-      { mo:11, day:5 , h:19, m:30, icon:'🥂', cat:'Wine Party',          title:'30·40 Wine Party',               desc:'30·40대를 위한 편안한 와인 소셜 파티',            price:45000, form:PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F5%28%ED%86%A0%29%2019%3A30%20%C2%B7%2030%C2%B740%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
-      { mo:11, day:11, h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F11%28%EA%B8%88%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
-      { mo:11, day:12, h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F12%28%ED%86%A0%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
-      { mo:11, day:18, h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F18%28%EA%B8%88%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
-      { mo:11, day:19, h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F19%28%ED%86%A0%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
-      { mo:11, day:25, h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F25%28%EA%B8%88%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
-      { mo:11, day:26, h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F26%28%ED%86%A0%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' }
+      { mo:11, day:4 , h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F4%28%EA%B8%88%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
+      { mo:11, day:5 , h:19, m:30, icon:'🥂', cat:'Wine Party',          title:'30·40 Wine Party',               desc:'30·40대를 위한 편안한 와인 소셜 파티',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F5%28%ED%86%A0%29%2019%3A30%20%C2%B7%2030%C2%B740%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
+      { mo:11, day:11, h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F11%28%EA%B8%88%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
+      { mo:11, day:12, h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F12%28%ED%86%A0%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
+      { mo:11, day:18, h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F18%28%EA%B8%88%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
+      { mo:11, day:19, h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F19%28%ED%86%A0%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
+      { mo:11, day:25, h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F25%28%EA%B8%88%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
+      { mo:11, day:26, h:19, m:30, icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F26%28%ED%86%A0%29%2019%3A30%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' }
     ];
 
     function eventDate(e){ return new Date(YEAR, e.mo, e.day, e.h, e.m); }
@@ -507,7 +509,7 @@
     document.addEventListener('click', function(e){
       var a = e.target && e.target.closest ? e.target.closest('a[href*="docs.google.com/forms"]') : null;
       if (!a) return;
-      var isParty = a.href.indexOf('1FAIpQLSc7SZ9op3') > -1 || a.href.indexOf('1FAIpQLSfB0rzzq') > -1;
+      var isParty = a.href.indexOf('1FAIpQLSc7SZ9op3') > -1 || a.href.indexOf('1FAIpQLSfB0rzzq') > -1 || a.href.indexOf('1FAIpQLSciL7kY') > -1;
       var lines = (a.innerText || '').split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
       var label = lines.length > 2 ? (lines[0] + ' ' + lines[2]) : (lines[0] || '신청 폼');
       var params = {
