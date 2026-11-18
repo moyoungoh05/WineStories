@@ -466,5 +466,54 @@
   })();
 </script>
 
+<!-- 신청 추적: 광고 유입 경로 + '신청하기' 클릭 기록 (구글폼 수정 없음) -->
+<script>
+  (function(){
+    // Meta 픽셀 ID가 생기면 여기에 숫자만 넣으면 됩니다. 비어 있으면 픽셀은 꺼진 상태입니다.
+    var META_PIXEL_ID = '';
+
+    if (META_PIXEL_ID) {
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', META_PIXEL_ID);
+      fbq('track', 'PageView');
+    }
+
+    // 1) 처음 들어온 경로(광고 꼬리표)를 기억해 둡니다.
+    var src = {};
+    try {
+      var p = new URLSearchParams(location.search);
+      ['utm_source','utm_medium','utm_campaign','utm_content'].forEach(function(k){
+        if (p.get(k)) src[k] = p.get(k);
+      });
+      if (!src.utm_source && p.get('fbclid')) { src.utm_source = 'meta'; src.utm_medium = 'paid_social'; }
+      if (Object.keys(src).length) sessionStorage.setItem('ws_src', JSON.stringify(src));
+      else src = JSON.parse(sessionStorage.getItem('ws_src') || '{}');
+    } catch (e) { src = {}; }
+
+    // 2) '신청하기' / '신청 폼 바로가기' 클릭을 기록합니다.
+    document.addEventListener('click', function(e){
+      var a = e.target && e.target.closest ? e.target.closest('a[href*="docs.google.com/forms"]') : null;
+      if (!a) return;
+      var isParty = a.href.indexOf('1FAIpQLSc7SZ9op3') > -1 || a.href.indexOf('1FAIpQLSfB0rzzq') > -1;
+      var lines = (a.innerText || '').split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
+      var label = lines.length > 2 ? (lines[0] + ' ' + lines[2]) : (lines[0] || '신청 폼');
+      var params = {
+        form_type: isParty ? 'party' : 'tasting',
+        session_label: label.slice(0, 100),
+        entry_source: src.utm_source || '(direct)',
+        entry_campaign: src.utm_campaign || '(none)',
+        entry_content: src.utm_content || '(none)',
+        transport_type: 'beacon'
+      };
+      try { if (window.gtag) gtag('event', 'signup_click', params); } catch (err) {}
+      try { if (window.fbq) fbq('track', 'Lead', { content_category: params.form_type, content_name: params.session_label }); } catch (err) {}
+    }, true);
+  })();
+</script>
+
 </body>
 </html>
