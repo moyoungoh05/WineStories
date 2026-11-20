@@ -175,6 +175,12 @@
   .session-meta{ font-size:11px; color:var(--ink-faint); font-family:'IBM Plex Mono','Gowun Dodum',monospace; margin-top:8px; }
   .session-cta{ font-size:11.5px; font-weight:600; color:var(--accent); margin-top:10px; }
   .empty-note{ font-size:13px; color:var(--ink-soft); background:var(--surface-2); border-radius:12px; padding:16px; text-align:center; }
+  .session-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .session-tag{ font-size:11px; color:var(--ink-soft); background:var(--surface-2); border-radius:8px; padding:3px 8px; }
+  .session-card.feature-3040{ border:2px solid var(--accent); }
+  .session-card.feature-sg{ border:2px solid var(--gold); }
+  .feature-sg .session-title, .feature-sg .session-cta{ color:var(--gold); }
+  .program-rule{ font-size:12.5px; color:var(--ink-soft); background:var(--surface-2); border-radius:12px; padding:12px 14px; line-height:1.7; }
 
   .blog-card{ background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:8px; }
   .blog-tag{ align-self:flex-start; font-size:10.5px; font-family:'IBM Plex Mono','Gowun Dodum',monospace; color:var(--accent); background:var(--accent-soft); padding:3px 9px; border-radius:100px; }
@@ -226,6 +232,16 @@
       <a class="tool-card" href="#sessions-party" style="--tool-color:var(--tool-party);--tool-bg:var(--tool-party-soft);">
         <span class="tool-icon">🎉</span>
         <span class="tool-text"><span class="tool-title">파티 일정</span><span class="tool-sub">Wine Party</span></span>
+        <span class="tool-chev">›</span>
+      </a>
+      <a class="tool-card" href="#program-3040" style="--tool-color:var(--accent);--tool-bg:var(--accent-soft);">
+        <span class="tool-icon">🥂</span>
+        <span class="tool-text"><span class="tool-title">30·40 Wine Party</span><span class="tool-sub">12/5(토) 저녁 8시 · 만 34~45세</span></span>
+        <span class="tool-chev">›</span>
+      </a>
+      <a class="tool-card" href="#program-sogaeting" style="--tool-color:var(--gold);--tool-bg:#f6ecd9;">
+        <span class="tool-icon">💌</span>
+        <span class="tool-text"><span class="tool-title">Wine 소개팅</span><span class="tool-sub">NEW · 주말 오후 2시 · 90~00년생</span></span>
         <span class="tool-chev">›</span>
       </a>
       <a class="tool-card" href="#blog" style="--tool-color:var(--tool-blog);--tool-bg:var(--tool-blog-soft);">
@@ -301,6 +317,64 @@
       </div>
     </div>
   </section>
+
+  <!-- ===== Panel: 30·40 Wine Party ===== -->
+  <section class="panel" id="panel-program-3040" data-title="30·40 Wine Party">
+    <div class="panel-head"><button class="back-btn" onclick="goHome()">←</button><span class="panel-title">30·40 Wine Party</span></div>
+    <div class="panel-body">
+      <p class="lede">또래끼리 편하게 마시는 와인 한 잔. 처음 만나도 금방 대화가 이어지는 토요일 저녁이에요.</p>
+      <div class="btn-stack">
+        <a class="session-card feature-3040" data-until="2026-12-05T20:00" href="https://docs.google.com/forms/d/e/1FAIpQLSciL7kY-JEG9aWW1ny6xiVZzATA2ZOp3UqNlhdfrgrl8prnlg/viewform?usp=pp_url&entry.351594491=12%2F5%28%ED%86%A0%29%2020%3A00%20%C2%B7%2030%C2%B740%20Wine%20Party%20%2845%2C000%EC%9B%90%29" target="_blank" rel="noopener">
+          <div class="session-top"><span class="session-date">12.5 (토) 20:00</span><span class="session-dday" data-dday="2026-12-05">D-</span></div>
+          <div class="session-title">30·40 Wine Party · 단 하루</div>
+          <div class="session-desc">바쁜 한 해 끝에, 나를 위한 토요일 저녁. 혼자 와도 괜찮아요. 어색함은 첫 잔에서 끝나요.</div>
+          <div class="session-tags"><span class="session-tag">만 34~45세</span><span class="session-tag">남 12 · 여 12</span><span class="session-tag">와인 + 샤퀴테리·치즈</span></div>
+          <div class="session-meta">🥂 30·40 Wine Party · 45,000원</div>
+          <div class="session-cta">신청하기 →</div>
+        </a>
+      </div>
+      <div class="empty-note program-past" hidden>이번 30·40 Wine Party는 마감됐어요. 다음 일정은 곧 알려드릴게요 🍷</div>
+    </div>
+  </section>
+
+  <!-- ===== Panel: Wine 소개팅 ===== -->
+  <section class="panel" id="panel-program-sogaeting" data-title="Wine 소개팅">
+    <div class="panel-head"><button class="back-btn" onclick="goHome()">←</button><span class="panel-title">Wine 소개팅</span></div>
+    <div class="panel-body">
+      <p class="lede">파티와 다른 프로그램이에요. 주말 낮 2시, 25분씩 테이블을 옮기며 대화하고, 서로 고른 분끼리만 연락처를 전해드려요.</p>
+      <div class="btn-stack">
+        <a class="session-card feature-sg" data-until="2026-12-13T14:00" href="https://docs.google.com/forms/d/e/1FAIpQLSeAxe_-u_7fCWuNCeXdQf5rbnRm4f_Epra0AhDmvjMXVfL08A/viewform?usp=pp_url&entry.351594491=12%2F13(%EC%9D%BC)%2014%3A00%20%C2%B7%20Wine%20%EC%86%8C%EA%B0%9C%ED%8C%85%20(35%2C000%EC%9B%90)" target="_blank" rel="noopener">
+          <div class="session-top"><span class="session-date">12.13 (일) 14:00~16:30</span><span class="session-dday" data-dday="2026-12-13">D-</span></div>
+          <div class="session-title">Wine 소개팅 · 1회</div>
+          <div class="session-desc">저녁 술자리는 조금 부담스럽고, 주말 낮에 새로운 사람과 천천히 이야기 나눠보고 싶다면. 둘씩 한 테이블에 앉아 25분마다 자리를 옮기며 네 번의 새로운 대화.</div>
+          <div class="session-tags"><span class="session-tag">90~00년생</span><span class="session-tag">남 8 · 여 8</span><span class="session-tag">와인 + 샤퀴테리</span></div>
+          <div class="session-meta">💌 Wine 소개팅 · 35,000원</div>
+          <div class="session-cta">소개팅 신청하기 →</div>
+        </a>
+      </div>
+      <div class="empty-note program-past" hidden>다음 Wine 소개팅 일정은 곧 알려드릴게요 🍷</div>
+      <div class="program-rule">· 참가 대상: 1990~2000년생 (27~37세)<br>· 친구와 둘이, 혼자서도 신청할 수 있어요. 혼자 오시면 현장에서 같은 성별끼리 짝을 지어드려요.<br>· 마지막에 대화를 더 나누고 싶은 분을 카드에 적어요(최대 3명). 서로 고른 경우에만 당일 21시까지 개별 문자로 연락처를 전해드려요.<br>· 진행 중 연락처 교환은 하지 않아요.<br>· 취소·환불: 3일 전까지 전액 · 2일 전~전날 50% · 당일·노쇼 환불 없음 · 같은 성별 지인 양도는 전날까지 가능</div>
+    </div>
+  </section>
+
+  <script>
+    (function(){
+      var now = new Date();
+      document.querySelectorAll('[data-dday]').forEach(function(el){
+        var p = el.getAttribute('data-dday').split('-');
+        var t = new Date(+p[0], +p[1]-1, +p[2]);
+        var d = Math.round((t - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 86400000);
+        el.textContent = d === 0 ? '오늘' : (d === 1 ? '내일' : 'D-' + d);
+      });
+      document.querySelectorAll('[data-until]').forEach(function(card){
+        if (now >= new Date(card.getAttribute('data-until'))) {
+          card.hidden = true;
+          var note = card.closest('.panel-body').querySelector('.program-past');
+          if (note) note.hidden = false;
+        }
+      });
+    })();
+  </script>
 
   <!-- ===== Panel: Blog ===== -->
   <section class="panel" id="panel-blog" data-title="Wine Stories">
@@ -415,7 +489,7 @@
       { mo:10, day:28, h:20, m:0 , icon:'🍾', cat:'Wine Party',          title:'Wine Party',                    desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=11%2F28%28%ED%86%A0%29%2020%3A00%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
       // ---- 12월 파티 (매주 금·토 20:00, 12/5는 30·40 파티) ----
       { mo:11, day:4 , h:20, m:0 , icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F4%28%EA%B8%88%29%2020%3A00%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
-      { mo:11, day:5 , h:20, m:0 , icon:'🥂', cat:'Wine Party',          title:'30·40 Wine Party',               desc:'30·40대를 위한 편안한 와인 소셜 파티',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F5%28%ED%86%A0%29%2020%3A00%20%C2%B7%2030%C2%B740%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
+      { mo:11, day:5 , h:20, m:0 , icon:'🥂', cat:'Wine Party',          title:'30·40 Wine Party',               desc:'30·40대를 위한 편안한 와인 소셜 파티', tag:'만 34~45세',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F5%28%ED%86%A0%29%2020%3A00%20%C2%B7%2030%C2%B740%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
       { mo:11, day:11, h:20, m:0 , icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F11%28%EA%B8%88%29%2020%3A00%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
       { mo:11, day:12, h:20, m:0 , icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F12%28%ED%86%A0%29%2020%3A00%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
       { mo:11, day:18, h:20, m:0 , icon:'🍾', cat:'Wine Party',          title:'Wine Party',                     desc:'편하게 어울리는 와인 소셜 파티',            price:45000, form:DEC_PARTY_FORM_BASE+'?usp=pp_url&entry.351594491=12%2F18%28%EA%B8%88%29%2020%3A00%20%C2%B7%20Wine%20Party%20%2845%2C000%EC%9B%90%29' },
@@ -446,6 +520,7 @@
         '<div class="session-top"><span class="session-date">'+dateLabel+'</span><span class="session-dday">'+dDayLabel(dt, now)+'</span></div>'+
         '<div class="session-title">'+e.title+'</div>'+
         '<div class="session-desc">'+e.desc+'</div>'+
+        (e.tag ? '<div class="session-tags"><span class="session-tag">'+e.tag+'</span></div>' : '')+
         '<div class="session-meta">'+e.icon+' '+e.cat+' · '+e.price.toLocaleString('ko-KR')+'원</div>'+
         '<div class="session-cta">신청하기 →</div>'+
       '</a>';
@@ -523,7 +598,7 @@
       var lines = (a.innerText || '').split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
       var label = lines.length > 2 ? (lines[0] + ' ' + lines[2]) : (lines[0] || '신청 폼');
       var params = {
-        form_type: isParty ? 'party' : 'tasting',
+        form_type: a.href.indexOf('1FAIpQLSeAxe_') > -1 ? 'sogaeting' : (isParty ? 'party' : 'tasting'),
         session_label: label.slice(0, 100),
         entry_source: src.utm_source || '(direct)',
         entry_campaign: src.utm_campaign || '(none)',
@@ -618,6 +693,10 @@
           <button type="button" data-v="2명">2명</button>
         </div>
       </div>
+      <div class="ap-field" id="apFriendWrap" hidden>
+        <label class="ap-label" for="apFriend">함께 오는 친구 <small>(이름 / 출생년도 / 연락처)</small></label>
+        <input class="ap-input" id="apFriend" placeholder="김친구 / 1996 / 010-0000-0000">
+      </div>
       <div class="ap-field" id="apMemoWrap">
         <label class="ap-label" for="apMemo">문의사항 <small>(선택)</small></label>
         <textarea class="ap-text" id="apMemo" rows="2"></textarea>
@@ -625,6 +704,11 @@
 
       <div class="ap-note" id="apNote">신청 후 참석자 단톡방에서 참가비 입금 안내를 드려요.</div>
 
+      <div id="apSgAgrees" hidden>
+        <label class="ap-agree"><input type="checkbox" class="ap-sg-chk"><span>현재 미혼이며, 상대에게 실례가 되지 않도록 진행 규칙을 지키겠습니다.</span></label>
+        <label class="ap-agree"><input type="checkbox" class="ap-sg-chk"><span>서로 선택한 경우에 한해, 상대에게 제 이름과 연락처를 전달하는 데 동의합니다.</span></label>
+        <label class="ap-agree"><input type="checkbox" class="ap-sg-chk"><span>취소·환불 규정을 확인했습니다. (3일 전 전액 · 2일 전~전날 50% · 당일·노쇼 환불 없음)</span></label>
+      </div>
       <label class="ap-agree">
         <input type="checkbox" id="apAgree">
         <span>개인정보 수집·이용에 동의합니다. (항목: 성함, 연락처, 나이 · 목적: 참여 및 입금 확인 · 보유: 참여 후 7일 이내 삭제)</span>
@@ -662,7 +746,17 @@
         job: false, memo: true
       }
     };
-    var FORM_LIST = [FORMS.party, FORMS.tasting];
+    FORMS.sogaeting = {
+      id: '1FAIpQLSeAxe_-u_7fCWuNCeXdQf5rbnRm4f_Epra0AhDmvjMXVfL08A',
+      kicker: 'Wine 소개팅',
+      f: { agree:'entry.1565692020', person:'entry.305142572', phone:'entry.915079776', session:'entry.351594491', count:'entry.423573061', confirm:'entry.1712743738', friend:'entry.2118961938' },
+      job: true, memo: false, sg: true,
+      countMap: { '1명':'혼자 (1명)', '2명':'같은 성별 친구와 2명' },
+      confirmText: '미혼이며 진행 규칙을 지키겠습니다 · 서로 선택 시 연락처 전달에 동의합니다 · 취소·환불 규정을 확인했습니다',
+      years: [1990, 2000]
+    };
+    var FORM_LIST = [FORMS.party, FORMS.tasting, FORMS.sogaeting];
+    var ageWarned = false;
 
     var $ = function(id){ return document.getElementById(id); };
     var bd = $('apBackdrop'), cur = null, gender = '', count = '1명';
@@ -689,7 +783,7 @@
       host.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-v') === v); });
     }
     $('apGender').addEventListener('click', function(e){ var b = e.target.closest('button'); if (!b) return; gender = b.getAttribute('data-v'); setSeg(this, gender); });
-    $('apCount').addEventListener('click', function(e){ var b = e.target.closest('button'); if (!b) return; count = b.getAttribute('data-v'); setSeg(this, count); });
+    $('apCount').addEventListener('click', function(e){ var b = e.target.closest('button'); if (!b) return; count = b.getAttribute('data-v'); setSeg(this, count); $('apFriendWrap').hidden = !(cur && cur.sg && count === '2명'); });
 
     function open(form, href, preset){
       cur = form;
@@ -697,6 +791,15 @@
       $('apTitle').textContent = '신청하기';
       $('apJobWrap').hidden = !form.job;
       $('apMemoWrap').hidden = !form.memo;
+      $('apSgAgrees').hidden = !form.sg;
+      $('apFriendWrap').hidden = !(form.sg && count === '2명');
+      var cb = $('apCount').querySelectorAll('button');
+      cb[0].textContent = form.sg ? '혼자' : '1명';
+      cb[1].textContent = form.sg ? '같은 성별 친구와 2명' : '2명';
+      $('apNote').innerHTML = form.sg
+        ? '이 프로그램은 <b>1990~2000년생</b>(27~37세) 대상이에요. 함께 오는 친구도 같은 나이대여야 해요. 성비를 맞추기 위해 성별마다 8자리를 입금 순서로 확정하고, 이후는 대기로 안내드려요.'
+        : '신청 후 참석자 단톡방에서 참가비 입금 안내를 드려요.';
+      ageWarned = false;
       var sel = $('apSession'), opts = upcomingOptions(form);
       if (preset && opts.indexOf(preset) < 0) opts.unshift(preset);
       sel.innerHTML = (preset ? '' : '<option value="">일정을 선택해 주세요</option>') +
@@ -755,6 +858,15 @@
       if (!gender) return err.textContent = '성별을 선택해 주세요.';
       if (f.job && !job) return err.textContent = '직업을 간단히 입력해 주세요.';
       if (phone.replace(/\D/g,'').length < 10) return err.textContent = '연락처를 확인해 주세요.';
+      var friend = $('apFriend').value.trim();
+      if (f.sg) {
+        var y = parseInt(String($('apYear').value).replace(/\D/g,''), 10);
+        if (y < 100) y += (y > 30 ? 1900 : 2000);
+        if ((y < f.years[0] || y > f.years[1]) && !ageWarned) { ageWarned = true; return err.textContent = '이 프로그램은 1990~2000년생 대상이에요. 그래도 신청하시려면 한 번 더 눌러 주세요.'; }
+        if (count === '2명' && !friend) return err.textContent = '함께 오는 친구 정보를 적어 주세요.';
+        var sgOk = Array.prototype.every.call(document.querySelectorAll('.ap-sg-chk'), function(c){ return c.checked; });
+        if (!sgOk) return err.textContent = '확인 사항 3가지에 모두 체크해 주세요.';
+      }
       if (!$('apAgree').checked) return err.textContent = '개인정보 수집·이용에 동의해 주세요.';
       err.textContent = '';
 
@@ -764,13 +876,14 @@
       body.append(f.f.person, person);
       body.append(f.f.phone, phone);
       body.append(f.f.session, session);
-      body.append(f.f.count, count);
+      body.append(f.f.count, f.countMap ? f.countMap[count] : count);
+      if (f.sg) { body.append(f.f.confirm, f.confirmText); if (count === '2명' && friend) body.append(f.f.friend, friend); }
       if (f.memo && memo) body.append(f.f.memo, memo);
 
       var btn = this; btn.disabled = true; btn.textContent = '보내는 중…';
       fetch('https://docs.google.com/forms/d/e/' + f.id + '/formResponse', { method:'POST', mode:'no-cors', body: body })
         .then(function(){
-          var formType = f === FORMS.party ? 'party' : 'tasting';
+          var formType = f === FORMS.party ? 'party' : (f === FORMS.sogaeting ? 'sogaeting' : 'tasting');
           var src = {}; try { src = JSON.parse(sessionStorage.getItem('ws_src') || '{}'); } catch (e) {}
           try { if (window.gtag) gtag('event', 'signup_submit', { form_type: formType, session_label: session.slice(0,100), entry_source: src.utm_source || '(direct)', entry_campaign: src.utm_campaign || '(none)', entry_content: src.utm_content || '(none)', transport_type:'beacon' }); } catch (e) {}
           try { if (window.fbq) fbq('track', 'Lead', { content_category: formType, content_name: session.slice(0,100) }); } catch (e) {}
