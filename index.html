@@ -531,8 +531,258 @@
         transport_type: 'beacon'
       };
       try { if (window.gtag) gtag('event', 'signup_click', params); } catch (err) {}
-      try { if (window.fbq) fbq('track', 'Lead', { content_category: params.form_type, content_name: params.session_label }); } catch (err) {}
+      // 실제 신청(제출)만 'Lead'로 보냅니다. 버튼 클릭은 '신청서 열기'로 따로 기록합니다.
+      try { if (window.fbq) fbq('trackCustom', 'SignupOpen', { content_category: params.form_type, content_name: params.session_label }); } catch (err) {}
     }, true);
+  })();
+</script>
+
+<!-- 홈페이지 안 신청서: 입력은 여기서, 응답은 기존 구글폼(시트)으로 -->
+<style>
+  .ap-backdrop{ position:fixed; inset:0; background:rgba(28,20,17,.55); display:none; align-items:flex-end; justify-content:center; z-index:9999; }
+  .ap-backdrop.open{ display:flex; }
+  .ap-sheet{ background:var(--frame,#faf6f0); width:100%; max-width:480px; max-height:92vh; overflow:auto; border-radius:22px 22px 0 0; padding:22px 20px 26px; box-shadow:0 -10px 40px rgba(0,0,0,.25); -webkit-overflow-scrolling:touch; }
+  @media (min-width:640px){ .ap-backdrop{ align-items:center; } .ap-sheet{ border-radius:22px; } }
+  .ap-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:14px; }
+  .ap-kicker{ font-size:12px; letter-spacing:.08em; color:var(--gold,#a9782f); font-weight:600; text-transform:uppercase; }
+  .ap-title{ font-family:'Fraunces','Gowun Batang',serif; font-size:21px; font-weight:600; color:var(--ink,#2a1f1c); margin-top:2px; }
+  .ap-close{ border:0; background:var(--surface-2,#f4ede3); width:34px; height:34px; border-radius:50%; font-size:18px; cursor:pointer; color:var(--ink,#2a1f1c); flex:none; }
+  .ap-field{ margin-top:14px; }
+  .ap-label{ display:block; font-size:13.5px; font-weight:600; color:var(--ink,#2a1f1c); margin-bottom:6px; }
+  .ap-label small{ font-weight:400; color:var(--ink-faint,#9a8c81); }
+  .ap-input, .ap-select, .ap-text{ width:100%; box-sizing:border-box; border:1px solid var(--line,#e6dcd0); background:#fff; border-radius:12px; padding:12px 13px; font-size:16px; color:var(--ink,#2a1f1c); font-family:inherit; }
+  .ap-input:focus, .ap-select:focus, .ap-text:focus{ outline:2px solid var(--accent,#7c2331); outline-offset:0; border-color:transparent; }
+  .ap-row{ display:flex; gap:10px; }
+  .ap-row > *{ flex:1; }
+  .ap-seg{ display:flex; gap:8px; }
+  .ap-seg button{ flex:1; border:1px solid var(--line,#e6dcd0); background:#fff; border-radius:12px; padding:11px 0; font-size:15px; cursor:pointer; color:var(--ink,#2a1f1c); }
+  .ap-seg button.on{ background:var(--accent,#7c2331); color:#fff; border-color:var(--accent,#7c2331); }
+  .ap-agree{ display:flex; gap:10px; align-items:flex-start; margin-top:16px; font-size:13px; color:var(--ink-soft,#6b5c54); line-height:1.5; }
+  .ap-agree input{ width:20px; height:20px; margin-top:1px; accent-color:var(--accent,#7c2331); flex:none; }
+  .ap-note{ font-size:12.5px; color:var(--ink-soft,#6b5c54); background:var(--surface-2,#f4ede3); border-radius:12px; padding:10px 12px; margin-top:14px; line-height:1.55; }
+  .ap-err{ color:#b3261e; font-size:13px; margin-top:10px; min-height:1em; }
+  .ap-submit{ width:100%; margin-top:16px; border:0; border-radius:14px; padding:15px; font-size:16px; font-weight:600; background:var(--accent,#7c2331); color:#fff; cursor:pointer; }
+  .ap-submit:disabled{ opacity:.6; cursor:default; }
+  .ap-alt{ display:block; text-align:center; margin-top:12px; font-size:12.5px; color:var(--ink-faint,#9a8c81); }
+  .ap-done{ text-align:center; padding:18px 4px 6px; }
+  .ap-done .big{ font-size:44px; }
+  .ap-done h3{ font-family:'Fraunces','Gowun Batang',serif; font-size:22px; margin:8px 0 6px; color:var(--ink,#2a1f1c); }
+  .ap-done p{ font-size:14px; color:var(--ink-soft,#6b5c54); line-height:1.6; margin:0; }
+  .ap-sum{ margin:14px auto 0; background:#fff; border:1px solid var(--line,#e6dcd0); border-radius:12px; padding:10px 12px; font-size:13.5px; text-align:left; color:var(--ink,#2a1f1c); }
+</style>
+
+<div class="ap-backdrop" id="apBackdrop" aria-hidden="true">
+  <div class="ap-sheet" role="dialog" aria-modal="true" aria-labelledby="apTitle">
+    <div id="apFormView">
+      <div class="ap-head">
+        <div>
+          <div class="ap-kicker" id="apKicker">Wine Party</div>
+          <div class="ap-title" id="apTitle">신청하기</div>
+        </div>
+        <button type="button" class="ap-close" id="apClose" aria-label="닫기">✕</button>
+      </div>
+
+      <div class="ap-field">
+        <label class="ap-label" for="apSession">참여 일정</label>
+        <select class="ap-select" id="apSession"></select>
+      </div>
+      <div class="ap-field">
+        <label class="ap-label" for="apName">성함</label>
+        <input class="ap-input" id="apName" autocomplete="name" placeholder="홍길동">
+      </div>
+      <div class="ap-field ap-row">
+        <div>
+          <label class="ap-label" for="apYear">출생년도</label>
+          <input class="ap-input" id="apYear" inputmode="numeric" maxlength="4" placeholder="예: 1995">
+        </div>
+        <div>
+          <span class="ap-label">성별</span>
+          <div class="ap-seg" id="apGender">
+            <button type="button" data-v="남">남</button>
+            <button type="button" data-v="여">여</button>
+          </div>
+        </div>
+      </div>
+      <div class="ap-field" id="apJobWrap">
+        <label class="ap-label" for="apJob">직업 <small>(간단히)</small></label>
+        <input class="ap-input" id="apJob" placeholder="예: 회사원, 디자이너">
+      </div>
+      <div class="ap-field">
+        <label class="ap-label" for="apPhone">연락처</label>
+        <input class="ap-input" id="apPhone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="010-0000-0000">
+      </div>
+      <div class="ap-field">
+        <span class="ap-label">참가 인원</span>
+        <div class="ap-seg" id="apCount">
+          <button type="button" data-v="1명" class="on">1명</button>
+          <button type="button" data-v="2명">2명</button>
+        </div>
+      </div>
+      <div class="ap-field" id="apMemoWrap">
+        <label class="ap-label" for="apMemo">문의사항 <small>(선택)</small></label>
+        <textarea class="ap-text" id="apMemo" rows="2"></textarea>
+      </div>
+
+      <div class="ap-note" id="apNote">신청 후 참석자 단톡방에서 참가비 입금 안내를 드려요.</div>
+
+      <label class="ap-agree">
+        <input type="checkbox" id="apAgree">
+        <span>개인정보 수집·이용에 동의합니다. (항목: 성함, 연락처, 나이 · 목적: 참여 및 입금 확인 · 보유: 참여 후 7일 이내 삭제)</span>
+      </label>
+
+      <div class="ap-err" id="apErr"></div>
+      <button type="button" class="ap-submit" id="apSubmit">신청 완료하기</button>
+      <a class="ap-alt" id="apAlt" href="#" target="_blank" rel="noopener">입력이 안 되나요? 구글폼으로 신청하기</a>
+    </div>
+
+    <div id="apDoneView" class="ap-done" hidden>
+      <div class="big">🥂</div>
+      <h3>신청이 접수됐어요</h3>
+      <p>남겨주신 연락처로 단톡방 안내를 드릴게요.<br>참가비 입금 안내도 단톡방에서 드립니다.</p>
+      <div class="ap-sum" id="apSum"></div>
+      <button type="button" class="ap-submit" id="apDoneClose">확인</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function(){
+    // 실제 응답이 들어가는 구글폼 (응답 시트는 기존 그대로)
+    var FORMS = {
+      party: {
+        id: '1FAIpQLSciL7kY-JEG9aWW1ny6xiVZzATA2ZOp3UqNlhdfrgrl8prnlg',
+        kicker: 'Wine Party',
+        f: { agree:'entry.1565692020', person:'entry.305142572', phone:'entry.915079776', session:'entry.351594491', count:'entry.423573061' },
+        job: true, memo: false
+      },
+      tasting: {
+        id: '1FAIpQLSe61uVc0Po6x5OYEeJBsmyFr1IMW8G3zX0bqYPQQFiPIcodmQ',
+        kicker: 'Wine Class',
+        f: { agree:'entry.942030302', person:'entry.1335235989', phone:'entry.763790864', session:'entry.338746340', count:'entry.616083832', memo:'entry.1168865769' },
+        job: false, memo: true
+      }
+    };
+    var FORM_LIST = [FORMS.party, FORMS.tasting];
+
+    var $ = function(id){ return document.getElementById(id); };
+    var bd = $('apBackdrop'), cur = null, gender = '', count = '1명';
+
+    function formOf(href){
+      for (var i = 0; i < FORM_LIST.length; i++) if (href.indexOf(FORM_LIST[i].id) > -1) return FORM_LIST[i];
+      return null;
+    }
+    function optionFrom(href, form){
+      try { return new URL(href).searchParams.get(form.f.session) || ''; } catch (e) { return ''; }
+    }
+    // 홈페이지 일정 카드에서 '앞으로 남은' 선택지를 모읍니다 (구글폼 선택지 문구와 동일)
+    function upcomingOptions(form){
+      var seen = {}, out = [];
+      document.querySelectorAll('a.session-card').forEach(function(a){
+        if (a.href.indexOf(form.id) < 0) return;
+        var o = optionFrom(a.href, form);
+        if (o && !seen[o]) { seen[o] = 1; out.push(o); }
+      });
+      return out;
+    }
+
+    function setSeg(host, v){
+      host.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-v') === v); });
+    }
+    $('apGender').addEventListener('click', function(e){ var b = e.target.closest('button'); if (!b) return; gender = b.getAttribute('data-v'); setSeg(this, gender); });
+    $('apCount').addEventListener('click', function(e){ var b = e.target.closest('button'); if (!b) return; count = b.getAttribute('data-v'); setSeg(this, count); });
+
+    function open(form, href, preset){
+      cur = form;
+      $('apKicker').textContent = form.kicker;
+      $('apTitle').textContent = '신청하기';
+      $('apJobWrap').hidden = !form.job;
+      $('apMemoWrap').hidden = !form.memo;
+      var sel = $('apSession'), opts = upcomingOptions(form);
+      if (preset && opts.indexOf(preset) < 0) opts.unshift(preset);
+      sel.innerHTML = (preset ? '' : '<option value="">일정을 선택해 주세요</option>') +
+        opts.map(function(o){ return '<option>' + o.replace(/</g,'&lt;') + '</option>'; }).join('');
+      if (preset) sel.value = preset;
+      $('apAlt').href = href;
+      $('apErr').textContent = '';
+      $('apSubmit').disabled = false;
+      $('apFormView').hidden = false; $('apDoneView').hidden = true;
+      bd.classList.add('open'); bd.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+    function close(){
+      bd.classList.remove('open'); bd.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+    $('apClose').addEventListener('click', close);
+    $('apDoneClose').addEventListener('click', close);
+    bd.addEventListener('click', function(e){ if (e.target === bd) close(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && bd.classList.contains('open')) close(); });
+
+    // '신청하기' 카드와 '신청 폼 바로가기' 버튼을 누르면 구글폼 대신 이 신청서를 엽니다.
+    // (기존 클릭 기록 스크립트가 먼저 'signup_click'을 남긴 뒤 실행됩니다)
+    document.addEventListener('click', function(e){
+      if (e.target.closest && e.target.closest('#apBackdrop')) return;
+      var a = e.target.closest ? e.target.closest('a[href*="docs.google.com/forms"]') : null;
+      if (!a) return;
+      var form = formOf(a.href);
+      if (!form) return;
+      e.preventDefault();
+      open(form, a.href, optionFrom(a.href, form));
+    });
+
+    function birthLabel(y){
+      y = String(y).replace(/\D/g,'');
+      if (y.length === 4) return y.slice(2) + '년생';
+      if (y.length === 2) return y + '년생';
+      return '';
+    }
+    function fmtPhone(p){
+      p = p.replace(/\D/g,'');
+      return p.length === 11 ? p.slice(0,3)+'-'+p.slice(3,7)+'-'+p.slice(7) : p;
+    }
+
+    $('apSubmit').addEventListener('click', function(){
+      var err = $('apErr'), f = cur;
+      var session = $('apSession').value;
+      var name = $('apName').value.trim();
+      var birth = birthLabel($('apYear').value);
+      var job = $('apJob').value.trim();
+      var phone = fmtPhone($('apPhone').value);
+      var memo = $('apMemo').value.trim();
+      if (!session) return err.textContent = '참여 일정을 선택해 주세요.';
+      if (!name) return err.textContent = '성함을 입력해 주세요.';
+      if (!birth) return err.textContent = '출생년도를 4자리로 입력해 주세요. (예: 1995)';
+      if (!gender) return err.textContent = '성별을 선택해 주세요.';
+      if (f.job && !job) return err.textContent = '직업을 간단히 입력해 주세요.';
+      if (phone.replace(/\D/g,'').length < 10) return err.textContent = '연락처를 확인해 주세요.';
+      if (!$('apAgree').checked) return err.textContent = '개인정보 수집·이용에 동의해 주세요.';
+      err.textContent = '';
+
+      var person = [name, birth, gender].concat(f.job ? [job] : []).join(' / ');
+      var body = new URLSearchParams();
+      body.append(f.f.agree, '동의');
+      body.append(f.f.person, person);
+      body.append(f.f.phone, phone);
+      body.append(f.f.session, session);
+      body.append(f.f.count, count);
+      if (f.memo && memo) body.append(f.f.memo, memo);
+
+      var btn = this; btn.disabled = true; btn.textContent = '보내는 중…';
+      fetch('https://docs.google.com/forms/d/e/' + f.id + '/formResponse', { method:'POST', mode:'no-cors', body: body })
+        .then(function(){
+          var formType = f === FORMS.party ? 'party' : 'tasting';
+          var src = {}; try { src = JSON.parse(sessionStorage.getItem('ws_src') || '{}'); } catch (e) {}
+          try { if (window.gtag) gtag('event', 'signup_submit', { form_type: formType, session_label: session.slice(0,100), entry_source: src.utm_source || '(direct)', entry_campaign: src.utm_campaign || '(none)', entry_content: src.utm_content || '(none)', transport_type:'beacon' }); } catch (e) {}
+          try { if (window.fbq) fbq('track', 'Lead', { content_category: formType, content_name: session.slice(0,100) }); } catch (e) {}
+          $('apSum').innerHTML = '<b>' + session.replace(/</g,'&lt;') + '</b><br>' + person.replace(/</g,'&lt;') + ' · ' + count;
+          $('apFormView').hidden = true; $('apDoneView').hidden = false;
+          btn.disabled = false; btn.textContent = '신청 완료하기';
+        })
+        .catch(function(){
+          btn.disabled = false; btn.textContent = '신청 완료하기';
+          err.innerHTML = '전송이 안 됐어요. 잠시 후 다시 시도하시거나 아래 구글폼으로 신청해 주세요.';
+        });
+    });
   })();
 </script>
 
